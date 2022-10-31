@@ -2,6 +2,7 @@
 //
 
 #include <iostream>
+#include "Scope.h"
 
 class TwoInts {
 public:
@@ -60,7 +61,23 @@ int main()
     ab = swapByNewInstance(ab);
     std::cout << "\tMain TwoInts Instance swap result: \ta = " << ab.a << "\tb = " << ab.b << "\n\n";
     system("pause");
+
+    // Scope section
+
+    std::cout << "\n\nDemonstrate some fundamental variable scope behaviors\n";
+    system("pause");
+
+    Scope scope;
+    scope.showScope();
+
+    system("pause");
+    scope.showGlobalScope();
+
+    extern void showFileScope();  // not part of class, hence not in Scope.h, could declare in Scope.h - but that would be misleading
+    showFileScope();
 }
+
+// helper functions
 
 void swap(int a, int b) {
     int temp;

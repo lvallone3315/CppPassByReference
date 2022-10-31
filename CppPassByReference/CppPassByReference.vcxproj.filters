@@ -18,5 +18,13 @@
     <ClCompile Include="CppPassByReference.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Scope.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Scope.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
