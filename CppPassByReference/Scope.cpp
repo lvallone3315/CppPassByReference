@@ -2,27 +2,40 @@
 #include <iostream>
 #include <stdio.h>
 
+// Three versions of globalVar
+//   Scope class member variable - initialized to 100
+//   Scope class method (showScope) local variable - inialized to 999
+//   Outside scope class (inside scope.cpp) - initialized to 500
+
+int globalVar = 500;  // should never declare variables here
+
 Scope::Scope() {
 	// empty constructor
 }
 
-int globalVar = 500;  // should never declare variables here
-
+// show Scope, illustrates
+//    local variable scope (based on braces)
+//    class member variable vs. file declared variables ...
 void Scope::showScope() {
 	int localVar = 99;
 
 	{
 		int localVar = 1;
-		std::cout << "localVar inside braces: " << localVar << "\n";
+		std::cout << "\nlocalVar inside braces: " << localVar << "\n";
 	}
 	std::cout << "localVar outside braces: " << localVar << "\n";
 
 	int globalVar = 999;
-	std::cout << "globalVar overridden inside method: " << globalVar << "\n";
+	std::cout << "\n***\n globalVar overridden inside method: " << globalVar << "\n";
+	std::cout << "  globalVar member variable: " << this->globalVar << "\n";
+
+	// Note - inside a class method, no access to the globalVaR variable (500) defined outside the class (?)
 }
 
+// showGlobalScope -> method inside Scope class, displays member variabale (ie 100)
+// showFileScope --> method outside scope class, class variable not visible, but file variable is visible
 void Scope::showGlobalScope() {
-	std::cout << "globalVaR from class method: " << globalVar << "\n";
+	std::cout << "\n***\nglobalVaR from class method: " << globalVar << "\n";
 }
 
 void showFileScope() {
