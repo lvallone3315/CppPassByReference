@@ -6,6 +6,7 @@ private:
 
 public:
 	Scope();
+	Scope(int gVar);
 	void showScope();
 	void showGlobalScope();
 };
