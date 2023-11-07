@@ -30,21 +30,29 @@ int main()
     int a2 = 1;
     int b3 = 99;
 
+    std::cout << "\t\t\t       Correct Result \t\t\t       Wrong Result\n";
+    std::cout << "\t\t\t   a = " << b3 << "\tb = " << a2;
+    std::cout << "\t\t\t   a = " << a2 << "\tb = " << b3 << "\n\n";
+    std::cout << "\tMemory addresses: \ta2 = " << &a2 << "\tb3 = " << &b3 << "\n\n";
+
+
+
     TwoInts ab;
 
     swap(a2, b3);
-    std::cout << "\Main swap by values result: \t\t\ta = " << a2 << "\tb = " << b3 << "\n\n";
+    std::cout << "\tPass by value result: \t\t\t\ta = " << a2 << "\tb = " << b3 << "\n\n";
     system("pause");
 
     a2 = 1;
     b3 = 99;
 
     swapByReference(a2, b3);
-    std::cout << "\tMain swap result: \t\t\ta = " << a2 << "\tb = " << b3 << "\n";
+    std::cout << "\tPass by reference result: \t\t\ta = " << a2 << "\tb = " << b3 << "\n";
     system("pause");
 
     ab.a = 1;
     ab.b = 99;
+
     swapC(ab);
     std::cout << "\tMain TwoInts swap result: \t\ta = " << ab.a << "\tb = " << ab.b << "\n\n";
     system("pause");
@@ -58,17 +66,25 @@ int main()
 
     ab.a = 1;
     ab.b = 99; 
+    std::cout << "\n\tPre assign - struct ab mem addresses: \t\tab = " << &ab << "\t .a = " << &ab.a << "\t .b = " << &ab.b << "\n";
     ab = swapByNewInstance(ab);
+    std::cout << "\tPost assign - Struct ab mem addresses: \t\tab = " << &ab << "\t .a = " << &ab.a << "\t.b = " << &ab.b << "\n\n";
     std::cout << "\tMain TwoInts Instance swap result: \ta = " << ab.a << "\tb = " << ab.b << "\n\n";
     system("pause");
 
     // Scope section
 
     std::cout << "\n\nDemonstrate some fundamental variable scope behaviors\n";
+    std::cout << "\t\tCreate TWO scope objects\n\t\t\t1st: default global VaR = 100\n\t\t\t2nd: global Var = 200\n\n";
     system("pause");
 
     Scope scope;
+    Scope scope2(200);
+
+    std::cout << "\t*** Display details of 1st scope object (" << &scope << ") ***/n";
     scope.showScope();
+    std::cout << "\n\t*** Display details of 2nd scope object (" << &scope2 << ") ***/n";
+    scope2.showScope();
 
     system("pause");
     scope.showGlobalScope();
@@ -81,11 +97,21 @@ int main()
 
 void swap(int a, int b) {
     int temp;
-    std::cout << "*** Swap two variables: \t\t\ta = " << a << "\tb = " << b << "\n";
+    std::cout << "*** Swap two variables - by value:";
+    std::cout << "\n\tPass by value Memory: \ta = " << &a << "\tb = " << &b << "\n";
     temp = a;
     a = b;
     b = temp;
-    std::cout << "  *** Expected Result ***: \t\t\ta = " << a << "\tb = " << b << "\n\n";
+}
+
+void swapByReference(int& a, int& b) {
+    int temp;
+
+    std::cout << "\n*** Swap two variables - by Reference:";
+    std::cout << "\n\tPass by ref Memory: \ta = " << &a << "\tb = " << &b << "\n";
+    temp = a;
+    a = b;
+    b = temp;
 }
 
 void swapC(TwoInts numbersToSwap) {
@@ -94,16 +120,12 @@ void swapC(TwoInts numbersToSwap) {
     temp = numbersToSwap.a;
     numbersToSwap.a = numbersToSwap.b;
     numbersToSwap.b = temp;
+
+    //
+
 }
 
-void swapByReference(int& a, int& b) {
-    int temp;
 
-    std::cout << "\n*** Swap two variables - by Reference*\n"; 
-    temp = a;
-    a = b;
-    b = temp;
-}
 
 void swapCByReference(TwoInts& numbersToSwap) {
     int temp;
@@ -122,5 +144,6 @@ TwoInts swapByNewInstance(TwoInts numbersToSwap) {
     std::cout << "\n*** Create a new instance of TwoInts and return to calling routine\n";
     tempTwoInts.b = numbersToSwap.a;
     tempTwoInts.a = numbersToSwap.b;
+    std::cout << "\n\tStruct temp object mem addresses: \ttempTwoInts = " << &tempTwoInts << "\t .a = " << &tempTwoInts.a << "\t .b = " << &tempTwoInts.b << "\n";
     return tempTwoInts;
 }

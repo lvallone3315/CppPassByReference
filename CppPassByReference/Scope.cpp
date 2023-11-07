@@ -13,6 +13,10 @@ Scope::Scope() {
 	// empty constructor
 }
 
+Scope::Scope(int gVar) {
+	this->globalVar = gVar;
+}
+
 // show Scope, illustrates
 //    local variable scope (based on braces)
 //    class member variable vs. file declared variables ...
@@ -21,13 +25,13 @@ void Scope::showScope() {
 
 	{
 		int localVar = 1;
-		std::cout << "\nlocalVar inside braces: " << localVar << "\n";
+		std::cout << "\nlocalVar inside braces: " << localVar << "\tmemory address: " << &localVar << "\n";
 	}
-	std::cout << "localVar outside braces: " << localVar << "\n";
+	std::cout << "localVar outside braces: " << localVar << "\tmemory address: " << &localVar << "\n";
 
 	int globalVar = 999;
-	std::cout << "\n***\n globalVar overridden inside method: " << globalVar << "\n";
-	std::cout << "  globalVar member variable: " << this->globalVar << "\n";
+	std::cout << "\n\n globalVar overridden inside method: " << globalVar << "\tmemory address: " << &globalVar << "\n";
+	std::cout << "  globalVar member variable: " << this->globalVar << "\tmemory address: " << &this->globalVar << "\n";
 
 	// Note - inside a class method, no access to the globalVaR variable (500) defined outside the class (?)
 }
@@ -35,9 +39,9 @@ void Scope::showScope() {
 // showGlobalScope -> method inside Scope class, displays member variabale (ie 100)
 // showFileScope --> method outside scope class, class variable not visible, but file variable is visible
 void Scope::showGlobalScope() {
-	std::cout << "\n***\nglobalVaR from class method: " << globalVar << "\n";
+	std::cout << "\n\nglobalVaR from class method: " << globalVar << "\tmemory address: " << &globalVar << "\n";
 }
 
 void showFileScope() {
-	std::cout << "globalVar from non-class function: " << globalVar << "\n";
+	std::cout << "globalVar from non-class function: " << globalVar << "\tmemory address: " << &globalVar << "\n";
 }
