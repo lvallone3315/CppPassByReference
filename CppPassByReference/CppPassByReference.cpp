@@ -30,28 +30,36 @@ int main()
     int a2 = 1;
     int b3 = 99;
 
+    std::cout << "\tSwap\t\t\t\ta2 = " << a2 << "\t\tb3 = " << b3 << "\n";
+    std::cout << "\tMemory addresses: \t\ta2 = " << &a2 << "\tb3 = " << &b3 << "\n\n";
     std::cout << "\t\t\t       Correct Result \t\t\t       Wrong Result\n";
     std::cout << "\t\t\t   a = " << b3 << "\tb = " << a2;
     std::cout << "\t\t\t   a = " << a2 << "\tb = " << b3 << "\n\n";
-    std::cout << "\tMemory addresses: \ta2 = " << &a2 << "\tb3 = " << &b3 << "\n\n";
+    system("pause");
 
-
-
-    TwoInts ab;
 
     swap(a2, b3);
-    std::cout << "\tPass by value result: \t\t\t\ta = " << a2 << "\tb = " << b3 << "\n\n";
+    std::cout << "\tPass by value result: \t\t\ta = " << a2 << "\tb = " << b3 << "\n\n";
     system("pause");
 
     a2 = 1;
     b3 = 99;
 
     swapByReference(a2, b3);
-    std::cout << "\tPass by reference result: \t\t\ta = " << a2 << "\tb = " << b3 << "\n";
+    std::cout << "\tPass by reference result: \t\ta = " << a2 << "\tb = " << b3 << "\n";
     system("pause");
 
+ 
+
+    // Same concept - but passing an object (ie TwoInts) instead of discrete variables
+
+    TwoInts ab;
     ab.a = 1;
     ab.b = 99;
+
+    std::cout << "\n\n*** Same concept - but pass object instead of discrete variables ***\n";
+    std::cout << "\tSwap object\t\t\tab.a = " << ab.a << "\t\tab.b = " << ab.b << "\n";
+    std::cout << "\tMemory addresses: \t\tab.a = " << &ab.a << "\t\tab.b = " << &ab.b << "\n\n";
 
     swapC(ab);
     std::cout << "\tMain TwoInts swap result: \t\ta = " << ab.a << "\tb = " << ab.b << "\n\n";
@@ -66,7 +74,6 @@ int main()
 
     ab.a = 1;
     ab.b = 99; 
-    std::cout << "\n\tPre assign - struct ab mem addresses: \t\tab = " << &ab << "\t .a = " << &ab.a << "\t .b = " << &ab.b << "\n";
     ab = swapByNewInstance(ab);
     std::cout << "\tPost assign - Struct ab mem addresses: \t\tab = " << &ab << "\t .a = " << &ab.a << "\t.b = " << &ab.b << "\n\n";
     std::cout << "\tMain TwoInts Instance swap result: \ta = " << ab.a << "\tb = " << ab.b << "\n\n";
