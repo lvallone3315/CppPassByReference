@@ -53,6 +53,8 @@ int main()
     } while (messageObject.userCommand != Parser::QUIT);
 }
 
+
+// Argument passing by value & reference
 void demoArgumentPassing() {
 
     std::cout << "\t\tSwap Program Demonstrating C++ Pass by Value & Pass by Reference!\n\n";
@@ -115,10 +117,10 @@ void demoArgumentPassing() {
     system("pause");
 }
 
+
+// Scope section
+
 void demoScope() {
-
-    // Scope section
-
     std::cout << "\n\nDemonstrate some fundamental variable scope behaviors\n";
     std::cout << "\t\tCreate TWO scope objects\n\t\t\t1st: default global VaR = 100\n\t\t\t2nd: global Var = 200\n\n";
     system("pause");
@@ -197,7 +199,9 @@ void demoParsingUserInput() {
     } while (messageObject.userCommand != Parser::QUIT);
 }
 
-// helper functions
+
+
+// helper functions for swapping demo
 
 void swap(int a, int b) {
     int temp;
