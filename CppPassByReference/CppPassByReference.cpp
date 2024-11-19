@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include "Scope.h"
+#include "Parser.h"
 
 class TwoInts {
 public:
@@ -98,6 +99,63 @@ int main()
 
     extern void showFileScope();  // not part of class, hence not in Scope.h, could declare in Scope.h - but that would be misleading
     showFileScope();
+
+
+    /**
+     * this next section demonstrates a rudimentary parser (singleton instance)
+     * 
+     * start with
+     *    using strings to input directions without validation, then
+     *    using strings with basic validation, then
+     *    parsing the input string into a command (enum) and finally,
+     *    returning a message (structure) including both the raw input and the command
+     */
+    // start with just using strings to input directions
+    //    uses a singleton parser
+    Parser parser;
+    std::string userMessage = "Enter direction - North, South, East or West, or Quit to exit: ";
+    std::string userInput;
+
+    std::cout << "\n\n*** Write output, ask user to input a string ***\n";
+    while ((userInput = parser.writeOutputGetInputReturnString(userMessage)) != "Quit") {
+        std::cout << "\tYou entered: *" << userInput << "*\n";
+    }
+
+    // validated
+    std::cout << "\n\n*** Write output, ask user to input a string, but validate - case sensitive ***\n";
+    while ((userInput = parser.writeOutputGetInputReturnStringValidated(userMessage)) != "Quit") {
+        std::cout << "\tYou entered: " << userInput << "\n";
+    }
+
+    // enum
+    Parser::Command command;
+    std::cout << "\n\n*** Write output, ask user to input a string, but parse into a command (enum) ***\n";
+    while ((command = parser.writeOutputGetInputReturnCommand(userMessage)) != Parser::Quit) {
+        switch (command) {
+            case Parser::North:
+                std::cout << "\tYou entered: North\n";
+                break;
+            default:
+                std::cout << "\tsomething else was entered\n";
+
+        }
+    }
+
+    // message object
+    Parser::Message messageObject;
+    std::cout << "\n\n*** Write output, ask user to input a string, but parse into a message object ***\n";
+    do 
+    {
+        messageObject = parser.writeOutputGetInputReturnMessage(userMessage);
+        switch (messageObject.userCommand) {
+        case Parser::North:
+            std::cout << "\tYou entered: " << messageObject.userInputString << "\n";
+            std::cout << "\t\t command is North\n\n";
+            break;
+        default:
+            std::cout << "\t something other than North was entered: " << messageObject.userInputString << "\n";
+        }
+    } while (messageObject.userCommand != Parser::Quit);
 }
 
 // helper functions
