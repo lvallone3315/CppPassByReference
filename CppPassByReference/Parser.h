@@ -6,7 +6,7 @@ class Parser
 {
 
 public:
-	enum Command { North, South, East, West, Quit, Error };
+	enum Command { ARG_PASSING, SCOPE, PARSING, QUIT, ERROR };
 
 	struct Message {
 		Command userCommand;

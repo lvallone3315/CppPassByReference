@@ -32,7 +32,7 @@ std::string Parser::writeOutputGetInputReturnStringValidated(std::string message
 	std::string userInput;
 
 	userInput = writeOutputGetInputReturnString(messageToOutput);
-	if (userInput == "East" || userInput == "West" || userInput == "South" || userInput == "North" || userInput == "Quit")
+	if (userInput == "Arguments" || userInput == "Scope" || userInput == "Parsing" || userInput == "Quit")
 		return userInput;
 	else
 		return "Error";
@@ -64,16 +64,14 @@ Parser::Message Parser::writeOutputGetInputReturnMessage(std::string messageToOu
 }
 
 // helper function to parse the input into a command (enum)
-
 Parser::Command Parser::parseInput(std::string inputString) {
 	Command inputCommand;
 
-	if (inputString == "East") inputCommand = East;
-	else if (inputString == "West") inputCommand = West;
-	else if (inputString == "North") inputCommand = North;
-	else if (inputString == "South") inputCommand = South;
-	else if (inputString == "Quit") inputCommand = Quit;
-	else inputCommand = Error;
+	if (inputString == "Arguments") inputCommand = ARG_PASSING;
+	else if (inputString == "Scope") inputCommand = SCOPE;
+	else if (inputString == "Parsing") inputCommand = PARSING;
+	else if (inputString == "Quit") inputCommand = QUIT;
+	else inputCommand = ERROR;
 	return inputCommand;
 }
 

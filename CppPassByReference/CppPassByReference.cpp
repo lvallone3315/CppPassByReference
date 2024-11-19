@@ -16,11 +16,45 @@ void swapC(TwoInts);
 void swapByReference(int&, int&);
 void swapCByReference(TwoInts&);
 TwoInts swapByNewInstance(TwoInts);
+void demoArgumentPassing();
+void demoScope();
+void demoParsingUserInput();
 
 
 
 int main()
 {
+    // message object
+    Parser parser;
+    std::string userMessage = "\n\nEnter type of example to demo - Arguments, Scope, Parsing, or Quit to exit: ";
+    Parser::Message messageObject;
+
+    // created a parser - might as well use it :)
+
+    do
+    {
+        messageObject = parser.writeOutputGetInputReturnMessage(userMessage);
+        switch (messageObject.userCommand) {
+        case Parser::SCOPE:
+            std::cout << "\n\t\t*** Demo'ing Variable Scope ***\n\n";
+            demoScope();
+            break;
+        case Parser::ARG_PASSING:
+            std::cout << "\n\t\t*** Demo'ing Argument passing by value & reference ***\n\n";
+            demoArgumentPassing();
+            break;
+        case Parser::PARSING:
+            std::cout << "\n\t\t*** Demo'ing Parsing user input ***\n\n";
+            demoParsingUserInput();
+            break;
+        default:
+            std::cout << "\t invalid command entered: " << messageObject.userInputString << "try again or type Quit to exit\n\n";
+        }
+    } while (messageObject.userCommand != Parser::QUIT);
+}
+
+void demoArgumentPassing() {
+
     std::cout << "\t\tSwap Program Demonstrating C++ Pass by Value & Pass by Reference!\n\n";
 
     std::cout << "\n\t First two scenarios: pass integer vars by value, then by reference\n";
@@ -50,7 +84,7 @@ int main()
     std::cout << "\tPass by reference result: \t\ta = " << a2 << "\tb = " << b3 << "\n";
     system("pause");
 
- 
+
 
     // Same concept - but passing an object (ie TwoInts) instead of discrete variables
 
@@ -68,17 +102,20 @@ int main()
 
 
     ab.a = 1;
-    ab.b = 99; 
+    ab.b = 99;
     swapCByReference(ab);
     std::cout << "\tMain TwoInts Ref swap result: \t\ta = " << ab.a << "\tb = " << ab.b << "\n\n";
     system("pause");
 
     ab.a = 1;
-    ab.b = 99; 
+    ab.b = 99;
     ab = swapByNewInstance(ab);
     std::cout << "\tPost assign - Struct ab mem addresses: \t\tab = " << &ab << "\t .a = " << &ab.a << "\t.b = " << &ab.b << "\n\n";
     std::cout << "\tMain TwoInts Instance swap result: \ta = " << ab.a << "\tb = " << ab.b << "\n\n";
     system("pause");
+}
+
+void demoScope() {
 
     // Scope section
 
@@ -99,6 +136,7 @@ int main()
 
     extern void showFileScope();  // not part of class, hence not in Scope.h, could declare in Scope.h - but that would be misleading
     showFileScope();
+}
 
 
     /**
@@ -112,8 +150,9 @@ int main()
      */
     // start with just using strings to input directions
     //    uses a singleton parser
+void demoParsingUserInput() {
     Parser parser;
-    std::string userMessage = "Enter direction - North, South, East or West, or Quit to exit: ";
+    std::string userMessage = "Enter type of example to demo - Arguments, Scope, Parsing, or Quit to exit: ";
     std::string userInput;
 
     std::cout << "\n\n*** Write output, ask user to input a string ***\n";
@@ -130,10 +169,10 @@ int main()
     // enum
     Parser::Command command;
     std::cout << "\n\n*** Write output, ask user to input a string, but parse into a command (enum) ***\n";
-    while ((command = parser.writeOutputGetInputReturnCommand(userMessage)) != Parser::Quit) {
+    while ((command = parser.writeOutputGetInputReturnCommand(userMessage)) != Parser::QUIT) {
         switch (command) {
-            case Parser::North:
-                std::cout << "\tYou entered: North\n";
+            case Parser::SCOPE:
+                std::cout << "\tYou entered: Scope\n";
                 break;
             default:
                 std::cout << "\tsomething else was entered\n";
@@ -148,14 +187,14 @@ int main()
     {
         messageObject = parser.writeOutputGetInputReturnMessage(userMessage);
         switch (messageObject.userCommand) {
-        case Parser::North:
+        case Parser::SCOPE:
             std::cout << "\tYou entered: " << messageObject.userInputString << "\n";
-            std::cout << "\t\t command is North\n\n";
+            std::cout << "\t\t command is Scope\n\n";
             break;
         default:
-            std::cout << "\t something other than North was entered: " << messageObject.userInputString << "\n";
+            std::cout << "\t something other than Scope was entered: " << messageObject.userInputString << "\n";
         }
-    } while (messageObject.userCommand != Parser::Quit);
+    } while (messageObject.userCommand != Parser::QUIT);
 }
 
 // helper functions
@@ -204,7 +243,8 @@ void swapCByReference(TwoInts& numbersToSwap) {
 
 
 // Create a new instance of TwoInts and return to calling routine
-// Note: Pretty sure this is NO GOOD - since new instance probably created on the stack
+// Note: new instance is created on the stack, 
+//    but compiler will copy into the calling structure before nuking the temporary instance
 TwoInts swapByNewInstance(TwoInts numbersToSwap) {
     TwoInts tempTwoInts;
 
