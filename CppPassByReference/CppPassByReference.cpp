@@ -124,6 +124,7 @@ void swapByReference(int& a, int& b) {
 void swapC(TwoInts numbersToSwap) {
     int temp;
     std::cout << "\n*** Swap twoInts object - by Value*\n";
+    std::cout << "\n\tPass an instance by value memory addresses: \ta = " << &numbersToSwap.a << "\tb = " << &numbersToSwap.b << "\n";
     temp = numbersToSwap.a;
     numbersToSwap.a = numbersToSwap.b;
     numbersToSwap.b = temp;
@@ -137,6 +138,7 @@ void swapC(TwoInts numbersToSwap) {
 void swapCByReference(TwoInts& numbersToSwap) {
     int temp;
     std::cout << "\n*** Swap twoInts object - by Reference*\n";
+    std::cout << "\n\tPass an instance by reference memory addresses: \ta = " << &numbersToSwap.a << "\tb = " << &numbersToSwap.b << "\n";
     temp = numbersToSwap.a;
     numbersToSwap.a = numbersToSwap.b;
     numbersToSwap.b = temp;
