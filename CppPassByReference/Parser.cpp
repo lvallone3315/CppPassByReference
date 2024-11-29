@@ -13,8 +13,16 @@
  * 
  */
 
-Parser::Parser() {
-	// empty constructor
+Parser Parser::singletonInstance;   // create the parser object, there will only be one
+
+/**
+ * parserInstance - singleton parser.
+ * 
+ * \return pointer to parser object (created privately to ensure only a single copy)
+ */
+
+Parser& Parser::parserInstance() {
+	return singletonInstance;
 }
 
 // function to do a write to console & return everything the user entered

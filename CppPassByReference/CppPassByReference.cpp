@@ -24,8 +24,19 @@ void demoParsingUserInput();
 
 int main()
 {
-    // message object
-    Parser parser;
+    // Playing with singleton design pattern - only a single parser
+    Parser& parser = Parser::parserInstance();  // correct access to singleton
+
+    // Compiler won't let you do this, constructor is private
+    //  Parser parserIncorrectSingletonCreation;
+
+    // Let's create a 2nd version and verify the addresses are the same
+    std::cout << "\t\tDemo Singleton Object\n\n";
+    std::cout << "parser address is: " << &parser << std::endl;
+    Parser& parserSecondInstance = Parser::parserInstance();
+    std::cout << "second instance of parser address is: " << &parser << std::endl << std::endl;
+
+    // back to the rest of the demo
     std::string userMessage = "\n\nEnter type of example to demo - Arguments, Scope, Parsing, or Quit to exit: ";
     Parser::Message messageObject;
 
@@ -153,7 +164,7 @@ void demoScope() {
     // start with just using strings to input directions
     //    uses a singleton parser
 void demoParsingUserInput() {
-    Parser parser;
+    Parser &parser = Parser::parserInstance();
     std::string userMessage = "Enter type of example to demo - Arguments, Scope, Parsing, or Quit to exit: ";
     std::string userInput;
 
