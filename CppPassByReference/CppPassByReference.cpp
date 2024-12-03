@@ -4,6 +4,7 @@
 #include <iostream>
 #include "Scope.h"
 #include "Parser.h"
+#include "Logger.h"
 
 class TwoInts {
 public:
@@ -24,6 +25,10 @@ void demoParsingUserInput();
 
 int main()
 {
+    Logger& log = Logger::loggerInstance();
+    log.writeLog("Pass by reference demo project starting\n");
+    std::cout << "Address of log pointer: " << &log << std::endl;
+    
     // Playing with singleton design pattern - only a single parser
     Parser& parser = Parser::parserInstance();  // correct access to singleton
 
@@ -62,11 +67,17 @@ int main()
             std::cout << "\t invalid command entered: " << messageObject.userInputString << "try again or type Quit to exit\n\n";
         }
     } while (messageObject.userCommand != Parser::QUIT);
+
+    log.writeLog("Demo project exited via Quit command\n");
 }
 
 
 // Argument passing by value & reference
 void demoArgumentPassing() {
+    Logger &argpassingLogger = Logger::loggerInstance();
+    std::cout << "Address of arg passing log pointer: " << &argpassingLogger << std::endl;
+
+    argpassingLogger.writeLog("Starting pass by value & pass by reference argument passing demo\n");
 
     std::cout << "\t\tSwap Program Demonstrating C++ Pass by Value & Pass by Reference!\n\n";
 
@@ -126,6 +137,8 @@ void demoArgumentPassing() {
     std::cout << "\tPost assign - Struct ab mem addresses: \t\tab = " << &ab << "\t .a = " << &ab.a << "\t.b = " << &ab.b << "\n\n";
     std::cout << "\tMain TwoInts Instance swap result: \ta = " << ab.a << "\tb = " << ab.b << "\n\n";
     system("pause");
+
+    argpassingLogger.writeLog("Done with argument passing demo\n");
 }
 
 
